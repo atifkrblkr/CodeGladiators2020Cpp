@@ -10,11 +10,12 @@
 #include <string>
 #include <sstream>
 
-
 class TestCase {
 private:
     int members = 0;
     int winCountPrediction = 0;
+    int sizeOfOPowers;
+    int sizeOfGPowers;
     long* teamOPowers;
     long* teamGPowers;
 public:
@@ -45,12 +46,15 @@ TestCase::TestCase(int members, std::string teamOPowers, std::string teamGPowers
         std::stringstream(pow) >> teamGPower;
         teamGPowers[i] = teamGPower;
     }
-    
+    sizeOfGPowers = sizeof(teamGPowers);
+    sizeOfOPowers = sizeof(teamOPowers);
 };
 
 void TestCase::process() {
-    std::sort(teamGPowers, teamGPowers+members-1);
-    std::sort(teamOPowers, teamOPowers+members-1, std::greater<long>());
+    int nG = sizeOfGPowers / sizeof(teamGPowers[0]);
+    int nO = sizeOfOPowers / sizeof(teamOPowers[0]);
+    std::sort(teamGPowers, teamGPowers+nG);
+    std::sort(teamOPowers, teamOPowers+nO, std::greater<long>());
     for(int i=0; i<members; i++) {
         long gPow = teamGPowers[i];
         for(int j=0; j<members; j++) {
@@ -62,7 +66,7 @@ void TestCase::process() {
             }
         }
     }
-    std::cout << winCountPrediction;
+    std::cout << winCountPrediction << "\n";
 };
 
 TestCase* accept(int testcaseCount){
