@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		7033C35B244D44A800E610A6 /* CodeGladiators2020Cpp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CodeGladiators2020Cpp; sourceTree = BUILT_PRODUCTS_DIR; };
 		7033C35E244D44A800E610A6 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		7033C365244D451700E610A6 /* CodeGladiators2020Cpp */ = {isa = PBXFileReference; lastKnownFileType = folder; name = CodeGladiators2020Cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +44,7 @@
 			children = (
 				7033C35D244D44A800E610A6 /* CodeGladiators2020Cpp */,
 				7033C35C244D44A800E610A6 /* Products */,
+				7033C365244D451700E610A6 /* CodeGladiators2020Cpp */,
 			);
 			sourceTree = "<group>";
 		};
