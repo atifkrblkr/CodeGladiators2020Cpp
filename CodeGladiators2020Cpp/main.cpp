@@ -7,9 +7,96 @@
 //
 
 #include <iostream>
+#include <string>
+#include <sstream>
+
+
+class TestCase {
+private:
+    int members = 0;
+    int winCountPrediction = 0;
+    long* teamOPowers;
+    long* teamGPowers;
+public:
+    TestCase ();
+    TestCase (int, std::string, std::string);
+    void process();
+};
+
+TestCase::TestCase() {};
+
+TestCase::TestCase(int members, std::string teamOPowers, std::string teamGPowers) {
+    this->members = members;
+    std::istringstream ssO(teamOPowers);
+    this->teamOPowers = new long[members];
+    for(int i=0; ssO; i++){
+        std::string pow;
+        long teamOPower;
+        ssO >> pow;
+        std::stringstream(pow) >> teamOPower;
+        teamOPowers[i] = teamOPower;
+    }
+    std::istringstream ssG(teamGPowers);
+    this->teamGPowers = new long[members];
+    for(int i=0; ssG; i++){
+        std::string pow;
+        long teamGPower;
+        ssG >> pow;
+        std::stringstream(pow) >> teamGPower;
+        teamGPowers[i] = teamGPower;
+    }
+    
+};
+
+void TestCase::process() {
+    std::sort(teamGPowers, teamGPowers+members-1);
+    std::sort(teamOPowers, teamOPowers+members-1, std::greater<long>());
+    for(int i=0; i<members; i++) {
+        long gPow = teamGPowers[i];
+        for(int j=0; j<members; j++) {
+            long oPow = teamOPowers[j];
+            if(gPow>oPow & oPow>=0) {
+                teamOPowers[j] = -1;
+                winCountPrediction++;
+                break;
+            }
+        }
+    }
+    std::cout << winCountPrediction;
+};
+
+TestCase* accept(int testcaseCount){
+    TestCase* testCases = new TestCase[testcaseCount];
+    for(int i=0; i<testcaseCount; i++){
+        std::string members;
+        int memberCount = 0;
+        getline(std::cin, members);
+        std::stringstream(members) >> memberCount;
+        std::string teamOPowers;
+        getline(std::cin, teamOPowers);
+        std::string teamGPowers;
+        getline(std::cin, teamGPowers);
+        TestCase testCase (memberCount, teamOPowers, teamGPowers);
+        testCases[i] = testCase;
+    }
+    return testCases;
+};
+
+void process(int testCaseCount, TestCase* testCases) {
+    for(int i=0; i<testCaseCount; i++) {
+        TestCase testCase = testCases[i];
+        testCase.process();
+    }
+};
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+    std::string tcCount;
+    getline(std::cin, tcCount);
+    int testcaseCount = 0;
+    std::stringstream(tcCount) >> testcaseCount;
+    TestCase* testCases = accept(testcaseCount);
+    process(testcaseCount, testCases);
     return 0;
 }
+
+
